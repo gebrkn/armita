@@ -71,6 +71,8 @@ method|returns|greedy/lazy
 `filter(fn, thisArg?)`| `generator` | lazy
 `find(fn, thisArg?)`| `any` | lazy
 `findIndex(fn, thisArg?)`| `int` | lazy
+`flat(depth?)`| `generator` | lazy
+`flatMap(fn, thisArg?)`| `generator` | lazy
 `forEach(fn, thisArg?)`| `void` | lazy
 `keys()`| `generator` | lazy
 `map(fn, thisArg?)`| `generator` | lazy
@@ -88,5 +90,8 @@ npm install armita
 ## todos
 
 - async generators?
+- `.d.ts`
+
+
 
 
