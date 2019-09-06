@@ -17,7 +17,7 @@ function* range(start, end, step = 1) {
     }
 }
 
-function* iter(...xs) {
+function* iter(xs) {
     yield* xs;
 }
 

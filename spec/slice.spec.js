@@ -6,7 +6,7 @@ describe('slice', function () {
 
     it('should work without args', function () {
         expect(
-            [...h.iter(...aa).slice()]
+            [...h.iter(aa).slice()]
         ).toEqual(
             aa
         );
@@ -14,7 +14,7 @@ describe('slice', function () {
 
     it('should work with positive start', function () {
         expect(
-            [...h.iter(...aa).slice(3)]
+            [...h.iter(aa).slice(3)]
         ).toEqual(
             aa.slice(3)
         );
@@ -22,7 +22,7 @@ describe('slice', function () {
 
     it('should work with negative start', function () {
         expect(
-            [...h.iter(...aa).slice(-3)]
+            [...h.iter(aa).slice(-3)]
         ).toEqual(
             aa.slice(-3)
         );
@@ -30,12 +30,11 @@ describe('slice', function () {
 
     it('should work with positive start and end', function () {
         expect(
-            [...h.iter(...aa).slice(1, 4)]
+            [...h.iter(aa).slice(1, 4)]
         ).toEqual(
             aa.slice(1, 4)
         );
     });
-
 
     it('should stop when end is reached', function () {
         expect(
@@ -45,10 +44,9 @@ describe('slice', function () {
         );
     });
 
-
     it('should work with negative start or end', function () {
         expect(
-            [...h.iter(...aa).slice(-4, -1)]
+            [...h.iter(aa).slice(-4, -1)]
         ).toEqual(
             aa.slice(-4, -1)
         );

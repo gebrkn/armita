@@ -1,51 +1,53 @@
 let h = require('./support/helpers');
 
 describe('concat', function () {
+    let aa = [1, 2, 3];
+    let bb = [10, 11, 12];
 
     it('should accept no args', function () {
         expect(
-            [...h.fibs(3).concat()]
+            [...h.iter(aa).concat()]
         ).toEqual(
-            [0, 1, 1, 2, 3]
+            aa
         );
     });
 
     it('should accept primitives', function () {
         expect(
-            [...h.fibs(3).concat(11, true, 'foo', null)]
+            [...h.iter(aa).concat(11, true, 'abc', null)]
         ).toEqual(
-            [0, 1, 1, 2, 3, 11, true, 'foo', null]
+            [1, 2, 3, 11, true, 'abc', null]
         );
     });
 
     it('should spread arrays', function () {
         expect(
-            [...h.fibs(3).concat([111, 222], [10, 9, 8])]
+            [...h.iter(aa).concat([111, 222], [10, 9, 8])]
         ).toEqual(
-            [0, 1, 1, 2, 3, 111, 222, 10, 9, 8]);
+            [1, 2, 3, 111, 222, 10, 9, 8]);
     });
 
     it('should spread iterators', function () {
         expect(
-            [...h.fibs(3).concat(h.range(10, 12))]
+            [...h.iter(aa).concat(h.iter(bb))]
         ).toEqual(
-            [0, 1, 1, 2, 3, 10, 11]
+            [1, 2, 3, 10, 11, 12]
         );
     });
 
     it('should spread string objects', function () {
         expect(
-            [...h.fibs(3).concat(new String('abc'))]
+            [...h.iter(aa).concat(new String('abc'))]
         ).toEqual(
-            [0, 1, 1, 2, 3, 'a', 'b', 'c']
+            [1, 2, 3, 'a', 'b', 'c']
         );
     });
 
     it('should accept mixed args', function () {
         expect(
-            [...h.fibs(3).concat(99, h.range(10, 12), 'foo', [9, 8, 7])]
+            [...h.iter(aa).concat(99, h.iter(bb), 'abc', [9, 8, 7])]
         ).toEqual(
-            [0, 1, 1, 2, 3, 99, 10, 11, 'foo', 9, 8, 7]
+            [1, 2, 3, 99, 10, 11, 12, 'abc', 9, 8, 7]
         );
     });
 
@@ -56,17 +58,17 @@ describe('concat', function () {
         a[Symbol.isConcatSpreadable] = false;
 
         expect(
-            [...h.fibs(3).concat(a, b)]
+            [...h.iter(aa).concat(a, b)]
         ).toEqual(
-            [0, 1, 1, 2, 3, [11, 22, 33], 44, 55, 66]
+            [1, 2, 3, [11, 22, 33], 44, 55, 66]
         );
     });
 
     it('should be chainable', function () {
         expect(
-            [...h.fibs(3).concat(h.range(10, 12)).concat(h.fibs(3))]
+            [...h.iter(aa).concat(h.iter(bb)).concat(h.iter(aa))]
         ).toEqual(
-            [0, 1, 1, 2, 3, 10, 11, 0, 1, 1, 2, 3]
+            [1, 2, 3, 10, 11, 12, 1, 2, 3]
         );
     });
 

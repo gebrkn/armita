@@ -180,7 +180,7 @@ _m.slice = function* slice(begin = 0, end = _undef) {
         } else {
             for (let x of this) {
                 ++n;
-                if(n >= end) {
+                if (n >= end) {
                     break;
                 }
                 if (n >= begin) {

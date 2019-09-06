@@ -1,25 +1,26 @@
 let h = require('./support/helpers');
 
 describe('filter', function () {
+    let aa = [10, 11, 12, 13, 14, 15, 16];
 
     it('should work', function () {
         expect(
-            [...h.range(10, 16, 1).filter(x => x % 2)]
+            [...h.iter(aa).filter(x => x % 2)]
         ).toEqual(
-            [11, 13, 15]
+            aa.filter(x => x % 2)
         );
     });
 
     it('should fail if no args', function () {
         expect(
-            () => [...h.fibs(3).filter()]
+            () => [...h.iter(aa).filter()]
         ).toThrow(
         );
     });
 
     it('should return iterator', function () {
         expect(
-            h.isIter(h.range(10, 16, 1).filter(x => x % 2))
+            h.isIter(h.iter(aa).filter(x => x % 2))
         ).toBe(
             true
         );
@@ -27,7 +28,7 @@ describe('filter', function () {
 
     it('should provide correct callback args', function () {
         let t = [];
-        let _ = [...h.range(10, 12, 1).filter((x, i, a) => t.push([x, i, typeof a]))];
+        let _ = [...h.iter([10, 11]).filter((x, i, a) => t.push([x, i, typeof a]))];
 
         expect(
             t
@@ -46,7 +47,7 @@ describe('filter', function () {
 
 
         }
-        let _ = [...h.range(10, 12, 1).filter(o.f, o)];
+        let _ = [...h.iter([10, 11]).filter(o.f, o)];
 
         expect(
             t
@@ -61,7 +62,7 @@ describe('map', function () {
 
     it('should work', function () {
         expect(
-            [...h.range(10, 13).map(x => x * 2)]
+            [...h.iter([10, 11, 12]).map(x => x * 2)]
         ).toEqual(
             [20, 22, 24]
         );
@@ -69,7 +70,7 @@ describe('map', function () {
 
     it('should fail if no args', function () {
         expect(
-            () => [...h.fibs(3).map()]
+            () => [...h.iter([1, 2]).map()]
         ).toThrow(
         );
     });
@@ -77,10 +78,11 @@ describe('map', function () {
 });
 
 describe('reduce', function () {
+    let aa = [10, 11, 12];
 
     it('should work with init', function () {
         expect(
-            h.range(10, 13).reduce((a, x) => a + '/' + x, 'foo')
+            h.iter(aa).reduce((a, x) => a + '/' + x, 'foo')
         ).toEqual(
             'foo/10/11/12'
         );
@@ -88,7 +90,7 @@ describe('reduce', function () {
 
     it('should work without init', function () {
         expect(
-            h.range(10, 13).reduce((a, x) => a + '/' + x)
+            h.iter(aa).reduce((a, x) => a + '/' + x)
         ).toEqual(
             '10/11/12'
         );
@@ -96,21 +98,21 @@ describe('reduce', function () {
 
     it('should fail if no args', function () {
         expect(
-            () => h.fibs(3).reduce()
+            () => h.iter(aa).reduce()
         ).toThrow(
         );
     });
 
     it('should fail with empty this and no init', function () {
         expect(
-            () => [].keys().reduce((a, y) => a + x)
+            () => h.iter([]).reduce((a, x) => a + x)
         ).toThrow(
         );
     });
 
     it('should return init with empty this', function () {
         expect(
-            [].keys().reduce((a, x) => a + x, 999)
+            h.iter([]).reduce((a, x) => a + x, 999)
         ).toEqual(
             999
         );
@@ -118,7 +120,7 @@ describe('reduce', function () {
 
     it('should provide correct callback args', function () {
         let t = [];
-        let _ = h.range(10, 13, 1).reduce((a, x, i) => {
+        let _ = h.iter(aa).reduce((a, x, i) => {
             t.push([a, x, i]);
             return 999
         }, 111);
@@ -132,7 +134,7 @@ describe('reduce', function () {
 
     it('should provide correct callback args with init', function () {
         let t = [];
-        let _ = h.range(10, 13, 1).reduce((a, x, i) => {
+        let _ = h.iter(aa).reduce((a, x, i) => {
             t.push([a, x, i]);
             return 999
         });
